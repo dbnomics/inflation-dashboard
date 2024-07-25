@@ -1,0 +1,31 @@
+[project]
+name = "inflation"
+version = "0.1.0"
+description = "Inflation dashboard with DBnomics data"
+authors = [
+    { name = "Juliette.Bornier", email = "juliette.bornier.3110@gmail.com" }
+]
+dependencies = [
+    "pandas>=2.2.2",
+    "streamlit>=1.36.0",
+    "streamlit-option-menu>=0.3.13",
+    "dbnomics>=1.2.5",
+    "plotly>=5.23.0",
+    "plotly-express>=0.4.1",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/inflation"]
