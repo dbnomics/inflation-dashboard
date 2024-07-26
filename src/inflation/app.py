@@ -48,8 +48,31 @@ def main() -> None:
         )
 
     if selected == "Explanations":
-        st.write("work in progress...")
-
+        st.subheader(":blue[**Definitions:**]")
+        st.write(
+            "**Inflation**\n"
+            "\n"
+            "Inflation occurs when there is **a broad increase in the prices of goods and prices**.\n"
+            "It leads to a loss of purchasing power. **With 1€, you can buy less today than you could yesterday**.\n"
+            "Inflation **reduces the value of currency** over time.\n"
+            "\n"
+            "**Consumer Price Index (CPI)**: a partial measure of inflation → household consumption. "
+        )
+        st.markdown("---")
+        st.write(
+            "**Commodity Price**\n"
+            "\n"
+            "Commodity prices are the prices at which **raw materials or foods are bought and sold**.\n"
+            "\"Commidity\" could be defined as basics resources that are interchangeable with other goods which are similar.\n"
+            "They are most often use as **inputs** in the production of goods.\n"
+            "\n"
+            "There are **two categories**\n"
+            "- **Hard Commodities**: Metal, Energy.\n"
+            "- **Soft Commodities**: Agricultar goods.\n"
+            "\n"
+            "**Commodity prices increase when inflation accelerates.**\n"
+            "Investors use commodities as a protection.So, the demand of commodities increases.\n"
+        )
     if selected == "Inflation":
         df = download_data()
         countries = df["Country"].unique()
