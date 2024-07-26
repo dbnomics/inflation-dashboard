@@ -49,6 +49,7 @@ def main() -> None:
 
     if selected == "Explanations":
         st.subheader(":blue[**Definitions:**]")
+        st.markdown("---")
         st.write(
             "**Inflation**\n"
             "\n"
