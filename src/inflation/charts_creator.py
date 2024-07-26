@@ -26,7 +26,7 @@ def plot_inflation(df_country):
                 "Inflation (%): %{customdata[1]}",
             ]
         ),
-        line=dict(color="deepink"),
+        line=dict(color="limegreen"),
     )
 
     return fig
