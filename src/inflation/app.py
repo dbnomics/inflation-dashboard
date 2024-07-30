@@ -48,7 +48,7 @@ def main() -> None:
         )
 
     if selected == "Explanations":
-        st.subheader(":blue[**Definitions:**]")
+        st.subheader(":blue[**Definitions**]")
         st.markdown("---")
         st.write(
             "**Inflation**\n"
@@ -64,15 +64,15 @@ def main() -> None:
             "**Commodity Price**\n"
             "\n"
             "Commodity prices are the prices at which **raw materials or foods are bought and sold**.\n"
-            "\"Commidity\" could be defined as basics resources that are interchangeable with other goods which are similar.\n"
-            "They are most often use as **inputs** in the production of goods.\n"
+            "\"Commodity\" could be defined as basic resources that are interchangeable with other goods which are similar.\n"
+            "They are most often used as **inputs** in the production of goods.\n"
             "\n"
             "There are **two categories**\n"
             "- **Hard Commodities**: Metal, Energy.\n"
             "- **Soft Commodities**: Agricultar goods.\n"
             "\n"
             "**Commodity prices increase when inflation accelerates.**\n"
-            "Investors use commodities as a protection.So, the demand of commodities increases.\n"
+            "Investors use commodities as a protection. So, the demand of commodities increases.\n"
         )
     if selected == "Inflation":
         df = download_data()
