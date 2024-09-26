@@ -73,7 +73,7 @@ def main() -> None:
             "**Commodity Price**\n"
             "\n"
             "Commodity prices are the prices at which **raw materials or foods are bought and sold**.\n"
-            "A \"commodity\" could be defined as basic resources that is interchangeable with other similar goods.\n"
+            "A \"commodity\" could be defined as a basic resource that is interchangeable with other similar goods.\n"
             "They are most often used as **inputs** in the production of goods.\n"
             "\n"
             "There are **two categories**\n"
