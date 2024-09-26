@@ -56,24 +56,32 @@ def main() -> None:
             "It leads to a loss of purchasing power. **With 1€, you can buy less today than you could yesterday**.\n"
             "Inflation **reduces the value of currency** over time.\n"
             "\n"
-            "**- Consumer Price Index (CPI)**: a partial measure of inflation (household consumption). \n"
+        )
+        st.markdown("---")
+        st.write(
+            "**Consumer Price Index (CPI)**:\n"
             "\n"
-            "**- Harmonised Index of Consumer Prices (HICP)**: a consumer price index measured across EU countries according to a standard methodology.\n"
+            "A partial measure of inflation based on household consumption.\n"
+            "It is calculated by observing the price changes of a fixed basket of goods and services every year.\n"
+            "\n"
+            "**Harmonised Index of Consumer Prices (HICP)**:\n" 
+            "\n"
+            "A consumer price index calculated across EU countries using a standardized methodology.\n"
         )
         st.markdown("---")
         st.write(
             "**Commodity Price**\n"
             "\n"
             "Commodity prices are the prices at which **raw materials or foods are bought and sold**.\n"
-            "\"Commodity\" could be defined as basic resources that are interchangeable with other goods which are similar.\n"
+            "A \"commodity\" could be defined as basic resources that is interchangeable with other similar goods.\n"
             "They are most often used as **inputs** in the production of goods.\n"
             "\n"
             "There are **two categories**\n"
             "- **Hard Commodities**: Metal, Energy.\n"
             "- **Soft Commodities**: Agricultar goods.\n"
             "\n"
-            "**Commodity prices increase when inflation accelerates.**\n"
-            "Investors use commodities as a protection. So, the demand of commodities increases.\n"
+            "**Commodity prices tend to rise when inflation accelerates.**\n"
+            "Investors use commodities as a hedge against inflation, leading to an increase in the demand for these assets.\n"
         )
     if selected == "Inflation":
         tab1, tab2 = st.tabs([":bar_chart:",":file_folder:"])
