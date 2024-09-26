@@ -3,33 +3,12 @@ from dbnomics import fetch_series
 
 # Download DBnomics data for inflation
 def download_data():
-    df_inflation = fetch_series(
-        [
-            "OECD/KEI/CPALTT01.ARG.GY.M",
-            "OECD/KEI/CPALTT01.AUS.GY.M",
-            "OECD/KEI/CPALTT01.AUT.GY.M",
-            "OECD/KEI/CPALTT01.BRA.GY.M",
-            "OECD/KEI/CPALTT01.CAN.GY.M",
-            "OECD/KEI/CPALTT01.CHN.GY.M",
-            "OECD/KEI/CPALTT01.ESP.GY.M",
-            "OECD/KEI/CPALTT01.FRA.GY.M",
-            "OECD/KEI/CPALTT01.GBR.GY.M",
-            "OECD/KEI/CPALTT01.IDN.GY.M",
-            "OECD/KEI/CPALTT01.IND.GY.M",
-            "OECD/KEI/CPALTT01.ITA.GY.M",
-            "OECD/KEI/CPALTT01.KOR.GY.M",
-            "OECD/KEI/CPALTT01.MEX.GY.M",
-        ]
-    )
-
-    print(df_inflation.columns)
-
+    df_inflation = fetch_series(provider_code= "OECD", dataset_code="KEI",series_code="CPALTT01..GP.M")
     col_inf = ["original_period", "original_value", "Country"]
 
     inflation = (
         df_inflation[col_inf].rename(columns={"original_value": "inflation"}).dropna()
     )
-    print(inflation.columns)
     return inflation
 
 
@@ -45,27 +24,17 @@ def create_df():
 
 
 def download_commodity_data():
-    df_commodity = fetch_series(
-        [
-            "IMF/PCPS/M.W00.PGOLD.PC_CP_A_PT",
-            "IMF/PCPS/M.W00.PNRG.PC_CP_A_PT",
-            "IMF/PCPS/M.W00.PNGAS.PC_CP_A_PT",
-            "IMF/PCPS/M.W00.PGASO.PC_CP_A_PT",
-            "IMF/PCPS/M.W00.PCERE.PC_CP_A_PT",
-            "IMF/PCPS/M.W00.PCOCO.PC_CP_A_PT",
-            "IMF/PCPS/M.W00.PCOFF.PC_CP_A_PT",
-            "IMF/PCPS/M.W00.POILAPSP.PC_CP_A_PT",
-        ]
-    )
+    df_commodity = fetch_series(provider_code= "IMF", dataset_code="PCPS",series_code="M.W00..PC_CP_A_PT", max_nb_series= 200)
+
     col_com = ["original_period", "original_value", "Commodity"]
 
-    df_commodity = (
+    df_commodities= (
         df_commodity[col_com]
         .rename(columns={"original_value": "commodity prices"})
         .dropna()
     )
 
-    return df_commodity
+    return df_commodities
 
 
 def create_commodity_df():
@@ -76,3 +45,11 @@ def create_commodity_df():
         print(f"Data for {commodity}:")
         print(df_percommodity.head())
     return df_percommodity
+
+def download_hicp():
+    df_hicp = fetch_series(provider_code="Eurostat", dataset_code= "prc_hicp_midx", series_code="M.I05.CP00") 
+    return df_hicp
+
+def download_icp():
+    df_icp = fetch_series(provider_code= "IMF", dataset_code= "CPI", series_code= "M..PCPI_PC_PP_PT", max_nb_series=200) 
+    return df_icp

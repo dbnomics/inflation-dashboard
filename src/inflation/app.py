@@ -1,8 +1,8 @@
 import importlib
 
 import streamlit as st
-from charts_creator import plot_commodity, plot_inflation
-from data_loader import download_commodity_data, download_data
+from charts_creator import plot_commodity, plot_inflation, plot_hicp, plot_icp
+from data_loader import download_commodity_data, download_data, download_hicp, download_icp
 from streamlit_option_menu import option_menu
 
 
@@ -13,7 +13,7 @@ def main() -> None:
         page_icon=str(package_dir / "images/favicon.png"),
     )
     st.image(str(package_dir / "images/dbnomics.svg"), width=300)
-    st.title(":blue[Prices Evolution]")
+    st.title(":blue[Price Indicators]")
 
     def local_css(file_name):
         with open(file_name) as f:
@@ -37,12 +37,11 @@ def main() -> None:
         unsafe_allow_html=True,
     )
 
-    st.markdown("---")
     with st.sidebar:
         selected = option_menu(
             menu_title="Menu",
-            options=["Explanations", "Inflation", "Commodity Prices Index", "Sources"],
-            icons=["book", "bar-chart", "bar-chart", "search"],
+            options=["Explanations", "Inflation", "CPI","HICP","Commodity Prices Index", "Sources"],
+            icons=["book", "bar-chart", "bar-chart", "bar-chart","bar-chart", "search"],
             menu_icon=":",
             default_index=0,
         )
@@ -57,7 +56,9 @@ def main() -> None:
             "It leads to a loss of purchasing power. **With 1€, you can buy less today than you could yesterday**.\n"
             "Inflation **reduces the value of currency** over time.\n"
             "\n"
-            "**Consumer Price Index (CPI)**: a partial measure of inflation → household consumption. "
+            "**- Consumer Price Index (CPI)**: a partial measure of inflation (household consumption). \n"
+            "\n"
+            "**- Harmonised Index of Consumer Prices (HICP)**: a consumer price index measured across EU countries according to a standard methodology.\n"
         )
         st.markdown("---")
         st.write(
@@ -75,33 +76,65 @@ def main() -> None:
             "Investors use commodities as a protection. So, the demand of commodities increases.\n"
         )
     if selected == "Inflation":
+        tab1, tab2 = st.tabs([":bar_chart:",":file_folder:"])
+        
         df = download_data()
         countries = df["Country"].unique()
-        country = st.selectbox("Select a country", countries)
+        with tab1:
+            
+            country = st.selectbox("Select a country", countries)
 
-        country_df = df[df["Country"] == country]
-        st.write(f":blue[**Inflation for {country}:**] ")
-        fig = plot_inflation(country_df)
-        st.plotly_chart(fig)
+            country_df = df[df["Country"] == country]
+            st.write(f":blue[**Inflation for {country}:**] ")
+            fig = plot_inflation(country_df)
+            st.plotly_chart(fig)
+        with tab2:
+            st.write(f"**Data for {country}**:")
+            st.write(country_df)
+    if selected == "CPI":
+        df = download_icp()
+        countries = df["Reference Area"].unique()
+        tab1, tab2 = st.tabs([":bar_chart:" , ":file_folder:"])
+        with tab1:
+            select_country1 = st.selectbox("Select a Country/Area", countries)
+            fig = plot_icp(df, select_country1)
+            st.plotly_chart(fig)
+        with tab2: 
+            st.write(f"Dataset for {select_country1}")
+            st.write(df[df["Reference Area"] == select_country1])
 
-        st.write(f"**Data for {country}**:")
-        st.write(country_df.iloc[:, :-1])
-
+    if selected == "HICP": 
+        df = download_hicp()
+        countries = df["Geopolitical entity (reporting)"].unique()
+        tab1, tab2 = st.tabs([":bar_chart:", ":file_folder:"])
+        with tab1:
+            select_country = st.selectbox("Select a country/area", countries)
+            fig = plot_hicp(df, select_country)
+            st.plotly_chart(fig)
+        with tab2:
+            st.subheader(f"Dataset for {select_country}")
+            st.write(df[df["Geopolitical entity (reporting)"] == select_country])
     if selected == "Commodity Prices Index":
         df = download_commodity_data()
         commodities = df["Commodity"].unique()
-        commodity = st.selectbox("**Select:**", commodities)
-
-        commodity_df = df[df["Commodity"] == commodity]
-        fig = plot_commodity(commodity_df)
-        st.plotly_chart(fig)
-        st.write(f"**Data Table**")
-        st.write(commodity_df.iloc[:, :-1])
+        tab1, tab2 = st.tabs([":bar_chart:", ":file_folder:"])
+        with tab1:
+            commodity = st.selectbox("**Select:**", commodities)
+            commodity_df = df[df["Commodity"] == commodity]
+            fig = plot_commodity(commodity_df)
+            st.plotly_chart(fig)
+        with tab2:
+            st.write("Dataset")
+            st.write(commodity_df)
 
     if selected == "Sources":
         st.subheader("**Data**")
         st.write(
             "[Inflation](https://db.nomics.world/OECD/KEI?tab=list)\n"
+            "\n"
+            "[CPI](https://db.nomics.world/IMF/CPI?tab=list)\n"
+            "\n"
+            "[HICP](https://db.nomics.world/Eurostat/prc_hicp_midx?tab=list)\n"
             "\n"
             "[Commodity Prices Index](https://db.nomics.world/IMF/PCPS?dimensions=%7B\"UNIT_MEASURE\"%3A%5B\"PC_CP_A_PT\"%5D%2C\"FREQ\"%3A%5B\"M\"%5D%7D&q=commodity%20prices&tab=list)\n"
         )
