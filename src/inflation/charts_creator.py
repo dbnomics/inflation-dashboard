@@ -32,13 +32,13 @@ def plot_inflation(df_country):
     return fig
 
 
-def plot_commodity(df_commodity):
-    df_commodity["original_period"] = pd.to_datetime(df_commodity["original_period"])
-    df_commodity["original_period"] = df_commodity["original_period"].dt.strftime(
+def plot_commodity(df_percommodity):
+    df_percommodity["original_period"] = pd.to_datetime(df_percommodity["original_period"])
+    df_percommodity["original_period"] = df_percommodity["original_period"].dt.strftime(
         "%Y/%m"
     )
     fig = px.line(
-        df_commodity,
+        df_percommodity,
         x="original_period",
         y="commodity prices",
         title="Commodity Prices Evolution",
@@ -73,7 +73,7 @@ def plot_hicp(df_hicp, select_country):
             y = "original_value",
             title = f"HICP for {select_country}"
         )
-        fig.update_traces(line_color = "limegreen")
+        fig.update_traces(line=dict(color="limegreen"))
         fig.update_layout(
             xaxis_title = "Years" , 
             yaxis_title = f"HICP (2005 = 100) for {select_country}"

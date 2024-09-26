@@ -37,13 +37,10 @@ def download_commodity_data():
     return df_commodities
 
 
-def create_commodity_df():
-    df = download_commodity_data()
-    commodities = df["Commodity"].unique()
+def create_commodity_df(df_commodities):
+    commodities = df_commodities["Commodity"].unique()
     for commodity in commodities:
-        df_percommodity = df[df["Commodity"] == commodity]
-        print(f"Data for {commodity}:")
-        print(df_percommodity.head())
+        df_percommodity = df_commodities[df_commodities["Commodity"] == commodity]
     return df_percommodity
 
 def download_hicp():
