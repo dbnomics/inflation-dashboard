@@ -52,7 +52,7 @@ def main() -> None:
         st.write(
             "**Inflation**\n"
             "\n"
-            "Inflation occurs when there is **a broad increase in the prices of goods and prices**.\n"
+            "Inflation occurs when there is **a broad increase in the prices of goods and services**.\n"
             "It leads to a loss of purchasing power. **With 1€, you can buy less today than you could yesterday**.\n"
             "Inflation **reduces the value of currency** over time.\n"
             "\n"
